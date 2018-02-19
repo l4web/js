@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import { render } from 'react-dom';
+import "semantic-ui/dist/semantic.min.css";
+import GameCard from './components/GameCard';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
+
+render(<GameCard/>, document.getElementById('root'));
