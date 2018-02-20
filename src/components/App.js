@@ -1,10 +1,12 @@
 import React from 'react';
+import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
 
 
 const games= [
     {
         _id: 1,
+        featured: true,
         price: 3299 ,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'quadropolis',
@@ -14,6 +16,7 @@ const games= [
     },
     {
         _id: 2,
+        featured: false,
         price: 2299 ,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'Heroes',
@@ -23,6 +26,7 @@ const games= [
     },
     {
         _id: 3,
+        featured: false,
         price: 3399 ,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'Red Alert',
@@ -41,7 +45,7 @@ class App extends React.Component {
     };
 
     componentDidMount() {
-        this.setState({ games: games})
+        this.setState({ games: _orderBy(games, ['featured','name'],['desc', 'asc'])})
     }
 
     render(){
