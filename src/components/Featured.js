@@ -2,16 +2,16 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 
 
-const Featured  = ({featured}) => (
+const Featured  = ({featured, toggleFeatured, id}) => (
     <span>
         {
             featured ? (
-                <a className="ui right corner yellow label">
-                    <i className="star icon"></i>
+                <a onClick={() => toggleFeatured(id)} className="ui right corner yellow label">
+                    <i className="star icon"/>
                 </a>
             ) : (
-                <a className="ui right corner label">
-                    <i className="empty star icon"></i>
+                <a onClick={() => toggleFeatured(id)} className="ui right corner label">
+                    <i className="empty star icon"/>
                 </a>
             )
 
@@ -22,7 +22,9 @@ const Featured  = ({featured}) => (
 );
 
 Featured.propTypes = {
-    featured : PropTypes.bool.isRequired
-}
+    featured : PropTypes.bool.isRequired,
+    toggleFeatured: PropTypes.func.isRequired,
+    id: PropTypes.number.isRequired
+};
 
 export default Featured;
