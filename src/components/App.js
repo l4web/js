@@ -1,6 +1,7 @@
 import React from 'react';
 import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
+import GameForm from "./GameForm";
 
 
 const games= [
@@ -12,6 +13,8 @@ const games= [
         name: 'quadropolis',
         players: "2-4",
         duration: 20,
+        desc: 'Lorem 2 ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore maiores ullam!',
+        isDesc: true
 
     },
     {
@@ -22,6 +25,8 @@ const games= [
         name: 'Heroes',
         players: "2",
         duration: 60,
+        desc: 'Lorem 3 ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore maiores ullam!',
+        isDesc: false
 
     },
     {
@@ -32,11 +37,12 @@ const games= [
         name: 'Red Alert',
         players: "1",
         duration: 80,
+        desc: 'Lorem 4 ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore maiores ullam!',
+        isDesc: false
 
     }
 
 ];
-
 
 
 class App extends React.Component {
@@ -50,6 +56,15 @@ class App extends React.Component {
 
     sortGames = games => {
        return _orderBy(games, ['featured','name'],['desc', 'asc']);
+    };
+
+    toggleDesc = isDesc => {
+        this.setState({
+            games: this.state.games.map(
+                game =>
+                    isDesc === game._id ? {...game, isDesc: !game.isDesc } : game
+            )
+        })
     };
 
     toggleFeatured = gameId => {
@@ -71,7 +86,9 @@ class App extends React.Component {
     render(){
         return (
             <div className="ui container">
-                <GamesList games={this.state.games} toggleFeatured={this.toggleFeatured}/>
+                <GameForm/>
+                <br/>
+                <GamesList games={this.state.games} toggleDesc={this.toggleDesc} toggleFeatured={this.toggleFeatured}/>
             </div>
         );
     }
