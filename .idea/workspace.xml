@@ -88,8 +88,8 @@
       <file leaf-file-name="GameForm.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/GameForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="20" column="71" lean-forward="true" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
+            <state relative-caret-position="537">
+              <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -381,7 +381,7 @@
       <workItem from="1519144142718" duration="8224000" />
       <workItem from="1519210556874" duration="335000" />
       <workItem from="1519231909167" duration="2175000" />
-      <workItem from="1519235610626" duration="3219000" />
+      <workItem from="1519235610626" duration="4532000" />
     </task>
     <task id="LOCAL-00001" summary="first react component">
       <created>1519063990135</created>
@@ -453,11 +453,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519242562336</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="#04-04 Dealing with types">
+      <created>1519243533449</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1519243533449</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23888000" />
+    <option name="totallyTimeSpent" value="25201000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -513,7 +520,8 @@
     <MESSAGE value="two ways to bind function" />
     <MESSAGE value="controled vs uncontroled form" />
     <MESSAGE value="text areafield" />
-    <option name="LAST_COMMIT_MESSAGE" value="text areafield" />
+    <MESSAGE value="#04-04 Dealing with types" />
+    <option name="LAST_COMMIT_MESSAGE" value="#04-04 Dealing with types" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -849,8 +857,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/GameForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="20" column="71" lean-forward="true" selection-start-line="20" selection-start-column="71" selection-end-line="20" selection-end-column="71" />
+        <state relative-caret-position="537">
+          <caret line="34" column="13" lean-forward="true" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding />
         </state>
       </provider>
