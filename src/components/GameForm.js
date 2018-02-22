@@ -136,16 +136,16 @@ class GameForm extends React.Component {
                         />
                     </div>
                 </div>
-                    <div className="inline field">
-                        <input
-                            type="checkbox"
-                            id="featured"
-                            name="featured"
-                            checked = {this.state.featured}
-                            onChange={this.handleCheckboxChange}
-                        />
-                        <label htmlFor="featured">Players </label>
-                    </div>
+                    {/*<div className="inline field">*/}
+                        {/*<input*/}
+                            {/*type="checkbox"*/}
+                            {/*id="featured"*/}
+                            {/*name="featured"*/}
+                            {/*checked = {this.state.featured}*/}
+                            {/*onChange={this.handleCheckboxChange}*/}
+                        {/*/>*/}
+                        {/*<label htmlFor="featured">Players </label>*/}
+                    {/*</div>*/}
                 {/*<div className="field">*/}
                     {/*<label>Tags</label>*/}
                     {/*{*/}
@@ -176,24 +176,28 @@ class GameForm extends React.Component {
                         {/*</div>*/}
                     {/*))}*/}
                 {/*</div>*/}
-                <div className="field">
-                    <label>Select game provider</label>
-                    <select
-                    name="publisher"
-                    value={this.state.publisher}
-                    onChange={this.handleNumberChange}
-                    >
-                        <option value="0" >Choose publisher</option>
-                        { this.props.publishers.map( publisher => (
-                            <option key={publisher._id} value={publisher._id}>{publisher.name}</option>
-                        ))}
-                    </select>
+                {/*<div className="field">*/}
+                    {/*<label>Select game provider</label>*/}
+                    {/*<select*/}
+                    {/*name="publisher"*/}
+                    {/*value={this.state.publisher}*/}
+                    {/*onChange={this.handleNumberChange}*/}
+                    {/*>*/}
+                        {/*<option value="0" >Choose publisher</option>*/}
+                        {/*{ this.props.publishers.map( publisher => (*/}
+                            {/*<option key={publisher._id} value={publisher._id}>{publisher.name}</option>*/}
+                        {/*))}*/}
+                    {/*</select>*/}
+                {/*</div>*/}
+                <div className="ui fluid buttons">
+                    <button className="button ui primary" type="submit">
+                        Create
+                    </button>
+                    <div className="or"></div>
+                    <a onClick={this.props.hideGameForm} className="ui button">Cancel</a>
                 </div>
 
 
-                <button className="button ui" type="submit">
-                    Create
-                </button>
             </form>
         );
     }
@@ -203,7 +207,8 @@ GameForm.propTypes = {
     publishers:PropTypes.arrayOf(PropTypes.shape({
         _id:PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
-    })).isRequired
+    })).isRequired,
+    hideGameForm: PropTypes.func.isRequired
 };
 
 GameForm.defaultProps = {

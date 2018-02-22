@@ -2,29 +2,30 @@ import React from 'react';
 import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
 import GameForm from "./GameForm";
+import TopNacigation from "./TopNavigation";
 
-const publisehrs = [
+const publishers = [
     {
-        _id:1,
+        _id: 1,
         name: "Days of wonder"
     },
     {
-        _id:2,
+        _id: 2,
         name: "Rio Grande games"
     },
     {
-        _id:3,
+        _id: 3,
         name: "Pcq Quote"
     }
 
 ];
 
-const games= [
+const games = [
     {
         _id: 1,
         featured: true,
         publisher: 1,
-        price: 3299 ,
+        price: 3299,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'quadropolis',
         players: "2-4",
@@ -37,7 +38,7 @@ const games= [
         _id: 2,
         featured: false,
         publisher: 1,
-        price: 2299 ,
+        price: 2299,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'Heroes',
         players: "2",
@@ -50,7 +51,7 @@ const games= [
         _id: 3,
         featured: false,
         publisher: 2,
-        price: 3399 ,
+        price: 3399,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'Red Alert',
         players: "1",
@@ -64,23 +65,24 @@ const games= [
 
 
 class App extends React.Component {
-    state= {
-        games: []
+    state = {
+        games: [],
+        showGameForm: false
     };
 
     componentDidMount() {
-        this.setState({ games: this.sortGames(games)})
+        this.setState({games: this.sortGames(games)})
     }
 
     sortGames = games => {
-       return _orderBy(games, ['featured','name'],['desc', 'asc']);
+        return _orderBy(games, ['featured', 'name'], ['desc', 'asc']);
     };
 
     toggleDesc = isDesc => {
         this.setState({
             games: this.state.games.map(
                 game =>
-                    isDesc === game._id ? {...game, isDesc: !game.isDesc } : game
+                    isDesc === game._id ? {...game, isDesc: !game.isDesc} : game
             )
         })
     };
@@ -90,7 +92,7 @@ class App extends React.Component {
             games: this.sortGames(
                 this.state.games.map(
                     game =>
-                        gameId === game._id ? {...game, featured: !game.featured } : game
+                        gameId === game._id ? {...game, featured: !game.featured} : game
                 )
             )
         })
@@ -101,12 +103,25 @@ class App extends React.Component {
         // this.setState({games: this.sortGames(newGames)});
     };
 
-    render(){
+    showGameForm = () => this.setState({showGameForm: true});
+    hideGameForm = () => this.setState({showGameForm: false});
+
+    render() {
+        const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
         return (
             <div className="ui container">
-                <GameForm publishers={publisehrs}/>
-                <br/>
-                <GamesList games={this.state.games} toggleDesc={this.toggleDesc} toggleFeatured={this.toggleFeatured}/>
+                <TopNacigation showGameForm={this.showGameForm}/>
+                <div className="ui stackable grid">
+                    {this.state.showGameForm &&(
+                    <div className="six wide column">
+                        <GameForm hideGameForm={this.hideGameForm}
+                                  publishers={publishers}/>
+                    </div>)}
+                    <div className={ numberOfColumns + " wide column"}>
+                        <GamesList games={this.state.games} toggleDesc={this.toggleDesc}
+                                   toggleFeatured={this.toggleFeatured}/>
+                    </div>
+                </div>
             </div>
         );
     }
