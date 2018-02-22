@@ -1,9 +1,15 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 const tags = [
     {_id:1, name: 'dice'},
     {_id:2, name: 'economic'},
     {_id:3, name: 'family'}
+];
+
+const genres = [
+    {_id:1, name: 'abstract'},
+    {_id:2, name: 'euro'},
+    {_id:3, name: 'ameritrash'}
 ];
 
 
@@ -15,8 +21,11 @@ class GameForm extends React.Component {
         duration: 0,
         players: '',
         featured: false,
-        tags: []
+        tags: [],
+        genre: 1,
+        publisher: 1
     };
+
 
     handleSubmit = e => {
         e.preventDefault();
@@ -30,7 +39,8 @@ class GameForm extends React.Component {
         this.state.tags.includes(tag._id)
         ? this.setState({tags: this.state.tags.filter(id => id !== tag.id)})
         : this.setState({tags: [...this.state.tags, tag._id]})
-    }
+    };
+    handleGenreChange = genre => {this.setState({genre: genre._id})};
 
     render(){
         return (
@@ -121,6 +131,33 @@ class GameForm extends React.Component {
                         )
                     }
                 </div>
+                <div className="field">
+                    <label>Genres</label>
+                    {genres.map( genre => (
+                        <div key={genre._id} className="inline field">
+                            <input
+                                id={'genre-${genre._id}'}
+                                type="radio"
+                                checked={this.state.genre === genre._id}
+                                onChange={() => this.handleGenreChange(genre)}
+                            />
+                            <label htmlFor={'genre-${genre._id}'}>{genre.name}</label>
+                        </div>
+                    ))}
+                </div>
+                <div className="field">
+                    <label>Select game provider</label>
+                    <select
+                    name="publisher"
+                    value={this.state.publisher}
+                    onChange={this.handleNumberChange}
+                    >
+                        <option value="0" >Choose publisher</option>
+                        { this.props.publishers.map( publisher => (
+                            <option key={publisher._id} value={publisher._id}>{publisher.name}</option>
+                        ))}
+                    </select>
+                </div>
 
 
                 <button className="button ui" type="submit">
@@ -131,4 +168,14 @@ class GameForm extends React.Component {
     }
 }
 
+GameForm.propTypes = {
+    publishers:PropTypes.arrayOf(PropTypes.shape({
+        _id:PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+    })).isRequired
+};
+
+GameForm.defaultProps = {
+    publishers: []
+};
 export default GameForm;

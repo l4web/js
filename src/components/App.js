@@ -3,11 +3,27 @@ import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
 import GameForm from "./GameForm";
 
+const publisehrs = [
+    {
+        _id:1,
+        name: "Days of wonder"
+    },
+    {
+        _id:2,
+        name: "Rio Grande games"
+    },
+    {
+        _id:3,
+        name: "Pcq Quote"
+    }
+
+];
 
 const games= [
     {
         _id: 1,
         featured: true,
+        publisher: 1,
         price: 3299 ,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'quadropolis',
@@ -20,6 +36,7 @@ const games= [
     {
         _id: 2,
         featured: false,
+        publisher: 1,
         price: 2299 ,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'Heroes',
@@ -32,6 +49,7 @@ const games= [
     {
         _id: 3,
         featured: false,
+        publisher: 2,
         price: 3399 ,
         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
         name: 'Red Alert',
@@ -86,7 +104,7 @@ class App extends React.Component {
     render(){
         return (
             <div className="ui container">
-                <GameForm/>
+                <GameForm publishers={publisehrs}/>
                 <br/>
                 <GamesList games={this.state.games} toggleDesc={this.toggleDesc} toggleFeatured={this.toggleFeatured}/>
             </div>
