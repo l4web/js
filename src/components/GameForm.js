@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-const tags = [
-    {_id:1, name: 'dice'},
-    {_id:2, name: 'economic'},
-    {_id:3, name: 'family'}
-];
+import ReactImageFallBack from 'react-image-fallback';
 
-const genres = [
-    {_id:1, name: 'abstract'},
-    {_id:2, name: 'euro'},
-    {_id:3, name: 'ameritrash'}
-];
+
+// const tags = [
+//     {_id:1, name: 'dice'},
+//     {_id:2, name: 'economic'},
+//     {_id:3, name: 'family'}
+// ];
+//
+// const genres = [
+//     {_id:1, name: 'abstract'},
+//     {_id:2, name: 'euro'},
+//     {_id:3, name: 'ameritrash'}
+// ];
 
 
 class GameForm extends React.Component {
@@ -23,7 +26,8 @@ class GameForm extends React.Component {
         featured: false,
         tags: [],
         genre: 1,
-        publisher: 1
+        publisher: 1,
+        thumbnail: ''
     };
 
 
@@ -45,27 +49,54 @@ class GameForm extends React.Component {
     render(){
         return (
             <form  className="ui form" onSubmit={this.handleSubmit}>
+                <div className="ui grid">
+                    <div className="twelve wide column">
+                        <div className="field">
+                            <label htmlFor="name">Game title</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                className="text"
+                                placeholder="Full game title"
+                                value = {this.state.name}
+                                onChange={this.handleStringChange}
+                            />
+                        </div>
+                        <div className="field">
+                            <label htmlFor="description">Game description</label>
+                            <textarea
+                                type="text"
+                                id="description"
+                                name="description"
+                                className="text"
+                                placeholder="Game description"
+                                value = {this.state.description}
+                                onChange={this.handleStringChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="four wide column">
+                        <ReactImageFallBack
+                            src={this.state.thumbnail}
+                            fallbackImage="http://via.placeholder.com/250x250"
+                            alt="thumbnail"
+                            className="ui image"
+
+                        />
+                    </div>
+                </div>
+
+
                 <div className="field">
-                    <label htmlFor="name">Game title</label>
+                    <label htmlFor="thumbnail">Thumbnail src </label>
                     <input
                         type="text"
-                        id="name"
-                        name="name"
+                        id="thumbnail"
+                        name="thumbnail"
                         className="text"
                         placeholder="Full game title"
-                        value = {this.state.name}
-                        onChange={this.handleStringChange}
-                    />
-                </div>
-                <div className="field">
-                    <label htmlFor="description">Game description</label>
-                    <textarea
-                        type="text"
-                        id="description"
-                        name="description"
-                        className="text"
-                        placeholder="Game description"
-                        value = {this.state.description}
+                        value = {this.state.thumbnail}
                         onChange={this.handleStringChange}
                     />
                 </div>
@@ -115,36 +146,36 @@ class GameForm extends React.Component {
                         />
                         <label htmlFor="featured">Players </label>
                     </div>
-                <div className="field">
-                    <label>Tags</label>
-                    {
-                        tags.map(tag => (
-                                <div key={tag._id} className="inline field">
-                                    <input id={'tag-${tag._id}'}
-                                           type="checkbox"
-                                           checked={this.state.tags.includes(tag._id)}
-                                           onChange={() => this.toggleTag(tag)}
-                                    />
-                                    <label htmlFor={'tag-${tag._id}'}>{tag.name}</label>
-                                </div>
-                            )
-                        )
-                    }
-                </div>
-                <div className="field">
-                    <label>Genres</label>
-                    {genres.map( genre => (
-                        <div key={genre._id} className="inline field">
-                            <input
-                                id={'genre-${genre._id}'}
-                                type="radio"
-                                checked={this.state.genre === genre._id}
-                                onChange={() => this.handleGenreChange(genre)}
-                            />
-                            <label htmlFor={'genre-${genre._id}'}>{genre.name}</label>
-                        </div>
-                    ))}
-                </div>
+                {/*<div className="field">*/}
+                    {/*<label>Tags</label>*/}
+                    {/*{*/}
+                        {/*tags.map(tag => (*/}
+                                {/*<div key={tag._id} className="inline field">*/}
+                                    {/*<input id={'tag-${tag._id}'}*/}
+                                           {/*type="checkbox"*/}
+                                           {/*checked={this.state.tags.includes(tag._id)}*/}
+                                           {/*onChange={() => this.toggleTag(tag)}*/}
+                                    {/*/>*/}
+                                    {/*<label htmlFor={'tag-${tag._id}'}>{tag.name}</label>*/}
+                                {/*</div>*/}
+                            {/*)*/}
+                        {/*)*/}
+                    {/*}*/}
+                {/*</div>*/}
+                {/*<div className="field">*/}
+                    {/*<label>Genres</label>*/}
+                    {/*{genres.map( genre => (*/}
+                        {/*<div key={genre._id} className="inline field">*/}
+                            {/*<input*/}
+                                {/*id={'genre-${genre._id}'}*/}
+                                {/*type="radio"*/}
+                                {/*checked={this.state.genre === genre._id}*/}
+                                {/*onChange={() => this.handleGenreChange(genre)}*/}
+                            {/*/>*/}
+                            {/*<label htmlFor={'genre-${genre._id}'}>{genre.name}</label>*/}
+                        {/*</div>*/}
+                    {/*))}*/}
+                {/*</div>*/}
                 <div className="field">
                     <label>Select game provider</label>
                     <select
