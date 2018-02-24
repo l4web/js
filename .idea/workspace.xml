@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="596b67fb-8388-4dea-a0ad-8bc685e1ce45" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/components/messages/FormInlineMessage.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/components/GameForm.js" afterPath="$PROJECT_DIR$/src/components/GameForm.js" />
     </list>
@@ -55,8 +54,8 @@
       <file leaf-file-name="GameForm.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/GameForm.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="65" column="51" lean-forward="true" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+            <state relative-caret-position="557">
+              <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -383,7 +382,7 @@
       <workItem from="1519231909167" duration="2175000" />
       <workItem from="1519235610626" duration="5745000" />
       <workItem from="1519313677538" duration="5805000" />
-      <workItem from="1519490427183" duration="2098000" />
+      <workItem from="1519490427183" duration="2720000" />
     </task>
     <task id="LOCAL-00001" summary="first react component">
       <created>1519063990135</created>
@@ -497,11 +496,18 @@
       <option name="project" value="LOCAL" />
       <updated>1519491127488</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="#05-03 Render error messages">
+      <created>1519493729157</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1519493729157</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34317000" />
+    <option name="totallyTimeSpent" value="34939000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -563,7 +569,8 @@
     <MESSAGE value="#04-08 Gamecover input" />
     <MESSAGE value="#04-09 dynamic layout" />
     <MESSAGE value="#05-02 Form refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="#05-02 Form refactor" />
+    <MESSAGE value="#05-03 Render error messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="#05-03 Render error messages" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1033,8 +1040,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/GameForm.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="65" column="51" lean-forward="true" selection-start-line="65" selection-start-column="51" selection-end-line="65" selection-end-column="51" />
+        <state relative-caret-position="557">
+          <caret line="41" column="17" lean-forward="true" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
