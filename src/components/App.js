@@ -3,6 +3,8 @@ import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
 import GameForm from "./GameForm";
 import TopNacigation from "./TopNavigation";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
 
 const publishers = [
     {
@@ -122,6 +124,8 @@ class App extends React.Component {
                                    toggleFeatured={this.toggleFeatured}/>
                     </div>
                 </div>
+                <LoginForm/>
+                <SignupForm/>
             </div>
         );
     }

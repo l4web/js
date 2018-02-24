@@ -18,31 +18,34 @@ import ReactImageFallBack from 'react-image-fallback';
 
 class GameForm extends React.Component {
     state={
-        name: '',
-        description: '',
-        price: 0,
-        duration: 0,
-        players: '',
-        featured: false,
-        tags: [],
-        genre: 1,
-        publisher: 1,
-        thumbnail: ''
+        data: {
+            name: '',
+            description: '',
+            price: 0,
+            duration: 0,
+            players: '',
+            featured: false,
+            tags: [],
+            genre: 1,
+            publisher: 1,
+            thumbnail: ''
+        },
+        errors: {}
     };
 
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log(this.state)
+        console.log(this.state.data)
     };
 
-    handleStringChange = e => {this.setState({ [e.target.name]: e.target.value}) };
-    handleNumberChange = e => {this.setState({ [e.target.name]: parseInt(e.target.value, 10)}) };
-    handleCheckboxChange = e => {this.setState({ [e.target.name]: e.target.checked()})};
+    handleStringChange = e => {this.setState({ data:{ ...this.state.data, [e.target.name]: e.target.value }}) };
+    handleNumberChange = e => {this.setState({ data:{...this.state.data, [e.target.name]: parseInt(e.target.value, 10)}}) };
+    handleCheckboxChange = e => {this.setState({ data:{...this.state.data,[e.target.name]: e.target.checked()}})};
     toggleTag= tag => {
-        this.state.tags.includes(tag._id)
-        ? this.setState({tags: this.state.tags.filter(id => id !== tag.id)})
-        : this.setState({tags: [...this.state.tags, tag._id]})
+        this.state.data.tags.includes(tag._id)
+        ? this.setState({ data:{tags: this.state.data.tags.filter(id => id !== tag.id)}})
+        : this.setState({ data:{tags: [...this.state.data.tags, tag._id]}})
     };
     handleGenreChange = genre => {this.setState({genre: genre._id})};
 
@@ -59,7 +62,7 @@ class GameForm extends React.Component {
                                 name="name"
                                 className="text"
                                 placeholder="Full game title"
-                                value = {this.state.name}
+                                value = {this.state.data.name}
                                 onChange={this.handleStringChange}
                             />
                         </div>
@@ -71,14 +74,14 @@ class GameForm extends React.Component {
                                 name="description"
                                 className="text"
                                 placeholder="Game description"
-                                value = {this.state.description}
+                                value = {this.state.data.description}
                                 onChange={this.handleStringChange}
                             />
                         </div>
                     </div>
                     <div className="four wide column">
                         <ReactImageFallBack
-                            src={this.state.thumbnail}
+                            src={this.state.data.thumbnail}
                             fallbackImage="http://via.placeholder.com/250x250"
                             alt="thumbnail"
                             className="ui image"
@@ -96,7 +99,7 @@ class GameForm extends React.Component {
                         name="thumbnail"
                         className="text"
                         placeholder="Full game title"
-                        value = {this.state.thumbnail}
+                        value = {this.state.data.thumbnail}
                         onChange={this.handleStringChange}
                     />
                 </div>
@@ -108,7 +111,7 @@ class GameForm extends React.Component {
                             id="price"
                             name="price"
                             className="text"
-                            value = {this.state.price}
+                            value = {this.state.data.price}
                             onChange={this.handleNumberChange}
                         />
                     </div>
@@ -119,7 +122,7 @@ class GameForm extends React.Component {
                             id="duration"
                             name="duration"
                             className="text"
-                            value = {this.state.duration}
+                            value = {this.state.data.duration}
                             onChange={this.handleNumberChange}
                         />
                     </div>
@@ -131,7 +134,7 @@ class GameForm extends React.Component {
                             name="players"
                             className="text"
                             placeholder="Full game title"
-                            value = {this.state.players}
+                            value = {this.state.data.players}
                             onChange={this.handleStringChange}
                         />
                     </div>
