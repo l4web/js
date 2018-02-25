@@ -38,8 +38,8 @@ class GameForm extends React.Component {
         if(!data.players) errors.players= "This field can't be blank";
         if(!data.publisher) errors.publisher= "This field can't be blank";
         if(!data.thumbnail) errors.thumbnail= "This field can't be blank";
-        if(!data.price <= 0) errors.price= "Too cheap don't you think ?";
-        if(!data.duration <=0) errors.duration= "Too short, isn't it?";
+        if(data.price <= 0) errors.price= "Too cheap don't you think ?";
+        if(data.duration <= 0) errors.duration= "Too short, isn't it?";
 
         return errors;
 
@@ -51,7 +51,7 @@ class GameForm extends React.Component {
         this.setState({errors});
 
         if(Object.keys(errors).length === 0){
-            console.log(this.state.data)
+            this.props.submit(this.state.data);
         }
 
     };
@@ -235,7 +235,8 @@ GameForm.propTypes = {
         _id:PropTypes.number.isRequired,
         name: PropTypes.string.isRequired
     })).isRequired,
-    hideGameForm: PropTypes.func.isRequired
+    hideGameForm: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired
 };
 
 GameForm.defaultProps = {

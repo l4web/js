@@ -88,6 +88,16 @@ class App extends React.Component {
             )
         })
     };
+    addGame = game => this.setState({
+        games: this.sortGames([
+            ...this.state.games,
+            {
+                ...game,
+                _id: this.state.games.length +1
+            }
+        ]),
+        showGameForm: false
+    })
 
     toggleFeatured = gameId => {
         this.setState({
@@ -116,11 +126,11 @@ class App extends React.Component {
                 <div className="ui stackable grid">
                     {this.state.showGameForm &&(
                     <div className="six wide column">
-                        <GameForm hideGameForm={this.hideGameForm}
+                        <GameForm submit={this.addGame} hideGameForm={this.hideGameForm}
                                   publishers={publishers}/>
                     </div>)}
                     <div className={ numberOfColumns + " wide column"}>
-                        <GamesList games={this.state.games} toggleDesc={this.toggleDesc}
+                        <GamesList  games={this.state.games} toggleDesc={this.toggleDesc}
                                    toggleFeatured={this.toggleFeatured}/>
                     </div>
                 </div>
