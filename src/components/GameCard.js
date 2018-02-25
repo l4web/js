@@ -4,7 +4,16 @@ import Price from './Price';
 import Featured from './Featured';
 import Message from './messages/Message'
 
-const GameCard = ({game, toggleFeatured, toggleDesc, editGame}) => (
+class GameCard extends React.Component {
+    state = {
+        showConfirmation : false
+    }
+    showConfirmation = () => this.setState({showConfirmation: true});
+    hideConfirmation = () => this.setState({showConfirmation:false});
+
+    render() {
+        const {game, toggleFeatured, toggleDesc, editGame, deleteGame} = this.props;
+        return(
     <div className="ui card">
 
         {game.isDesc ? (
@@ -42,17 +51,35 @@ const GameCard = ({game, toggleFeatured, toggleDesc, editGame}) => (
             </div>
         </div>
         <div className="extra content">
-            <div className="ui two buttons">
-                <a className="ui green basic button" onClick={() => editGame(game)}>
-                    <i className="ui icon edit"></i>
-                </a>
-                <a className="ui red basic button">
-                    <i className="ui icon trash"></i>
-                </a>
-            </div>
+            {
+                this.state.showConfirmation ? (
+                    <div>
+                    <h4>Shure 'bout that ? </h4>
+                    <div className="ui two buttons">
+                        <a className="ui red basic button" onClick={() => deleteGame(game)}>
+                            <i className="ui icon checkmark"/> YES
+                        </a>
+                        <a className="ui grey basic button" onClick={this.hideConfirmation}>
+                            <i className="ui icon close"/> NO
+                        </a>
+                    </div>
+                    </div>
+                ) : (
+                    <div className="ui two buttons">
+                        <a className="ui green basic button" onClick={() => editGame(game)}>
+                            <i className="ui icon edit"></i>
+                        </a>
+                        <a className="ui red basic button" onClick={this.showConfirmation}>
+                            <i className="ui icon trash"></i>
+                        </a>
+                    </div>
+                )
+            }
+
         </div>
     </div>
-);
+        )}
+};
 
 GameCard.propTypes = {
     game: PropTypes.shape({
@@ -68,7 +95,8 @@ GameCard.propTypes = {
     }).isRequired,
     toggleFeatured: PropTypes.func.isRequired,
     toggleDesc: PropTypes.func.isRequired,
-    editGame: PropTypes.func.isRequired
+    editGame: PropTypes.func.isRequired,
+    deleteGame : PropTypes.func.isRequired
 };
 
 export default GameCard;
