@@ -4,27 +4,27 @@ import Price from './Price';
 import Featured from './Featured';
 import Message from './messages/Message'
 
-const GameCard  = ({game, toggleFeatured, toggleDesc }) => (
+const GameCard = ({game, toggleFeatured, toggleDesc, editGame}) => (
     <div className="ui card">
 
-            {game.isDesc ? (
-                    <Message
+        {game.isDesc ? (
+                <Message
                     header="Description"
                     content={game.desc}
                     type="info"
-                    />
-                   ) :
-                (
-                    <div className="image">
+                />
+            ) :
+            (
+                <div className="image">
                     <span className="ui green ribbon label">$<Price cents={game.price}/></span>
                     <Featured featured={game.featured} id={game._id} toggleFeatured={toggleFeatured}/>
                     <img
                         src={game.thumbnail}
                         alt="Game Cover"
                     />
-                    </div>
-                )
-            }
+                </div>
+            )
+        }
 
 
         <div className="content">
@@ -32,12 +32,23 @@ const GameCard  = ({game, toggleFeatured, toggleDesc }) => (
             <div className="meta a">
                 <i className="icon users"/>{game.players}&nbsp;
                 <i className="icon wait"/> {game.duration}
-                { game.isDesc ? (
-                    <i onClick={() => toggleDesc(game._id)} style={{float: 'right'}} className="eye icon green large right "/>
-                ):(
+                {game.isDesc ? (
+                    <i onClick={() => toggleDesc(game._id)} style={{float: 'right'}}
+                       className="eye icon green large right "/>
+                ) : (
                     <i onClick={() => toggleDesc(game._id)} style={{float: 'right'}} className="eye icon large right "/>
                 )}
 
+            </div>
+        </div>
+        <div className="extra content">
+            <div className="ui two buttons">
+                <a className="ui green basic button" onClick={() => editGame(game)}>
+                    <i className="ui icon edit"></i>
+                </a>
+                <a className="ui red basic button">
+                    <i className="ui icon trash"></i>
+                </a>
             </div>
         </div>
     </div>
@@ -56,7 +67,8 @@ GameCard.propTypes = {
         isDesc: PropTypes.bool.isRequired
     }).isRequired,
     toggleFeatured: PropTypes.func.isRequired,
-    toggleDesc: PropTypes.func.isRequired
+    toggleDesc: PropTypes.func.isRequired,
+    editGame: PropTypes.func.isRequired
 };
 
 export default GameCard;

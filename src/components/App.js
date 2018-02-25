@@ -69,7 +69,8 @@ const games = [
 class App extends React.Component {
     state = {
         games: [],
-        showGameForm: false
+        showGameForm: false,
+        selectedGame: {}
     };
 
     componentDidMount() {
@@ -117,6 +118,7 @@ class App extends React.Component {
 
     showGameForm = () => this.setState({showGameForm: true});
     hideGameForm = () => this.setState({showGameForm: false});
+    selectGameForEditing = game => this.setState({selectedGame: game, showGameForm: true});
 
     render() {
         const numberOfColumns = this.state.showGameForm ? 'ten' : 'sixteen';
@@ -126,12 +128,21 @@ class App extends React.Component {
                 <div className="ui stackable grid">
                     {this.state.showGameForm &&(
                     <div className="six wide column">
-                        <GameForm submit={this.addGame} hideGameForm={this.hideGameForm}
-                                  publishers={publishers}/>
+                        <GameForm
+                            submit={this.addGame}
+                            hideGameForm={this.hideGameForm}
+                            publishers={publishers}
+                            game={this.state.selectedGame}
+                        />
                     </div>)}
                     <div className={ numberOfColumns + " wide column"}>
-                        <GamesList  games={this.state.games} toggleDesc={this.toggleDesc}
-                                   toggleFeatured={this.toggleFeatured}/>
+                        <GamesList
+                            games={this.state.games}
+                            toggleDesc={this.toggleDesc}
+                            toggleFeatured={this.toggleFeatured}
+                            editGame={this.selectGameForEditing}
+
+                        />
                     </div>
                 </div>
                 <LoginForm/>

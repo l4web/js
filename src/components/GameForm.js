@@ -19,6 +19,7 @@ import FormInlineMessage from './messages/FormInlineMessage';
 class GameForm extends React.Component {
     state={
         data: {
+            _id : null,
             name: '',
             description: '',
             price: 0,
@@ -32,6 +33,13 @@ class GameForm extends React.Component {
         },
         errors: {}
     };
+
+    componentDidMount() {
+        if(this.props.game._id){
+            this.setState({data: this.props.game});
+        }
+    }
+
     validate(data) {
         const errors= {};
         if(!data.name) errors.name= "This field can't be blank";
@@ -236,7 +244,16 @@ GameForm.propTypes = {
         name: PropTypes.string.isRequired
     })).isRequired,
     hideGameForm: PropTypes.func.isRequired,
-    submit: PropTypes.func.isRequired
+    submit: PropTypes.func.isRequired,
+    game: PropTypes.shape({
+        name: PropTypes.string,
+        thumbnail: PropTypes.string,
+        players: PropTypes.string,
+        price: PropTypes.number,
+        duration: PropTypes.number,
+        featured: PropTypes.bool,
+        desc: PropTypes.string
+    }).isRequired
 };
 
 GameForm.defaultProps = {
