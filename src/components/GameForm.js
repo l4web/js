@@ -15,28 +15,38 @@ import FormInlineMessage from './messages/FormInlineMessage';
 //     {_id:3, name: 'ameritrash'}
 // ];
 
+const initialData = {
+    _id : null,
+    name: '',
+    description: '',
+    price: 0,
+    duration: 0,
+    players: '',
+    featured: false,
+    tags: [],
+    genre: 1,
+    publisher: 1,
+    thumbnail: ''
+};
 
 class GameForm extends React.Component {
     state={
-        data: {
-            _id : null,
-            name: '',
-            description: '',
-            price: 0,
-            duration: 0,
-            players: '',
-            featured: false,
-            tags: [],
-            genre: 1,
-            publisher: 1,
-            thumbnail: ''
-        },
+        data: initialData,
         errors: {}
     };
 
     componentDidMount() {
         if(this.props.game._id){
             this.setState({data: this.props.game});
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.game._id && nextProps.game._id !== this.state.data._id){
+            this.setState({data: nextProps.game});
+        }
+        if(!nextProps.game._id){
+            this.setState({data:initialData})
         }
     }
 
