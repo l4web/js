@@ -3,8 +3,8 @@ import GameCard from './GameCard';
 import PropTypes from 'prop-types';
 import Message from './messages/Message'
 
-const GamesList = ({games, toggleFeatured, toggleDesc, editGame , deleteGame }) => (
-    <div className="ui four cards">
+const GamesList = ({games, toggleFeatured, toggleDesc, editGame , deleteGame , columnToShow}) => (
+    <div className={'ui cards '+ columnToShow}>
         {
             games.length === 0 ? (
                 <Message
@@ -29,10 +29,12 @@ GamesList.propTypes = {
     toggleFeatured: PropTypes.func.isRequired,
     toggleDesc: PropTypes.func.isRequired,
     editGame: PropTypes.func.isRequired,
-    deleteGame: PropTypes.func.isRequired
+    deleteGame: PropTypes.func.isRequired,
+    columnToShow: PropTypes.string
 };
 
 GamesList.defaultProps ={
-    games: []
+    games: [],
+    columnToShow : 4
 };
 export default GamesList;

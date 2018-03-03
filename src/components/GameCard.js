@@ -7,14 +7,14 @@ import Message from './messages/Message'
 class GameCard extends React.Component {
     state = {
         showConfirmation : false
-    }
+    };
     showConfirmation = () => this.setState({showConfirmation: true});
     hideConfirmation = () => this.setState({showConfirmation:false});
 
     render() {
         const {game, toggleFeatured, toggleDesc, editGame, deleteGame} = this.props;
         return(
-    <div className="ui card">
+    <div className="ui card" data={game._id}>
 
         {game.isDesc ? (
                 <Message
@@ -24,7 +24,7 @@ class GameCard extends React.Component {
                 />
             ) :
             (
-                <div className="image">
+                <div className="image" >
                     <span className="ui green ribbon label">$<Price cents={game.price}/></span>
                     <Featured featured={game.featured} id={game._id} toggleFeatured={toggleFeatured}/>
                     <img
