@@ -24,7 +24,7 @@ const Featured  = ({featured, toggleFeatured, id}) => (
 Featured.propTypes = {
     featured : PropTypes.bool.isRequired,
     toggleFeatured: PropTypes.func.isRequired,
-    id: PropTypes.number.isRequired
+    id: PropTypes.string.isRequired
 };
 
 export default Featured;

@@ -16,7 +16,6 @@ import FormInlineMessage from './messages/FormInlineMessage';
 // ];
 
 const initialData = {
-    _id : null,
     name: '',
     description: '',
     price: 0,
@@ -32,7 +31,8 @@ const initialData = {
 class GameForm extends React.Component {
     state={
         data: initialData,
-        errors: {}
+        errors: {},
+        loading: false
     };
 
     componentDidMount() {
@@ -68,9 +68,15 @@ class GameForm extends React.Component {
         const errors = this.validate(this.state.data);
         this.setState({errors});
 
-        if(Object.keys(errors).length === 0){
-            this.props.submit(this.state.data);
+        if(Object.keys(errors).length === 0) {
+            this.setState({loading: true});
+            this.props
+                .submit(this.state.data)
+                .catch(err =>
+                    this.setState({errors: err.response.data.errors, loading: false})
+                );
         }
+
 
     };
 
@@ -85,9 +91,10 @@ class GameForm extends React.Component {
     handleGenreChange = genre => {this.setState({genre: genre._id})};
 
     render(){
-        const  {data, errors} =this.state;
+        const  {data, errors, loading} =this.state;
+        const formClassName = loading ? 'ui form loading' : 'ui form';
         return (
-            <form  className="ui form" onSubmit={this.handleSubmit}>
+            <form  className={formClassName} onSubmit={this.handleSubmit}>
                 <div className="ui grid">
                     <div className="twelve wide column">
                         <div className={errors.name ? 'field error' : 'field' }>
@@ -250,7 +257,7 @@ class GameForm extends React.Component {
 
 GameForm.propTypes = {
     publishers:PropTypes.arrayOf(PropTypes.shape({
-        _id:PropTypes.number.isRequired,
+        _id:PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
     })).isRequired,
     hideGameForm: PropTypes.func.isRequired,

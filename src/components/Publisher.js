@@ -12,7 +12,7 @@ const Publisher  = ({publisher, showPublisherForm, deletePublisher}) => (
 );
 Publisher.propTypes = {
     publisher: PropTypes.shape({
-        _id: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
     }).isRequired,
     showPublisherForm: PropTypes.func.isRequired,

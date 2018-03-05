@@ -19,7 +19,8 @@ const GamesList = ({games, toggleFeatured, toggleDesc, editGame , deleteGame , c
                     toggleDesc={toggleDesc}
                     toggleFeatured={toggleFeatured}
                     key={game._id}
-                    game={game}/>)
+                    game={game}
+                />)
             )}
 
     </div>

@@ -19,7 +19,7 @@ class GameCard extends React.Component {
         {game.isDesc ? (
                 <Message
                     header="Description"
-                    content={game.desc}
+                    content={game.description}
                     type="info"
                 />
             ) :
@@ -83,14 +83,14 @@ class GameCard extends React.Component {
 
 GameCard.propTypes = {
     game: PropTypes.shape({
-        _id: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         thumbnail: PropTypes.string.isRequired,
         players: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
         duration: PropTypes.number.isRequired,
         featured: PropTypes.bool.isRequired,
-        desc: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
         isDesc: PropTypes.bool.isRequired
     }).isRequired,
     toggleFeatured: PropTypes.func.isRequired,

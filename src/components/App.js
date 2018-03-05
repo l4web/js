@@ -3,6 +3,7 @@ import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
 import GameForm from "./GameForm";
 import TopNacigation from "./TopNavigation";
+import _find from 'lodash/find';
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import PublishersList from "./PublishersList";
@@ -10,17 +11,17 @@ import api from '../api';
 
 const publishers = [
     {
-        _id: 1,
+        _id: '1',
         name: "Days of wonder",
         website: ''
     },
     {
-        _id: 2,
+        _id: '2',
         name: "Rio Grande games",
         website: ''
     },
     {
-        _id: 3,
+        _id: '3',
         name: "Pcq Quote",
         website: ''
     }
@@ -98,37 +99,46 @@ class App extends React.Component {
             )
         })
     };
-    saveGame = game => {
-        game._id ? this.updateGame(game) : this.addGame(game)
-    };
-    addGame = game => this.setState({
-        games: this.sortGames([
-            ...this.state.games,
-            {
-                ...game,
-                _id: this.state.games.length +1
-            }
-        ]),
-        showGameForm: false
-    });
+    saveGame = game => game._id ? this.updateGame(game) : this.addGame(game);
 
-    updateGame =  game => this.setState({
-        games: this.sortGames(this.state.games.map(item => item._id === game._id ? game : item)),
-        showGameForm: false
-    });
+    addGame = gameData =>
+        api.games.create(gameData).then(game =>
+            this.setState({
+                games: this.sortGames([...this.state.games, game]),
+                showGameForm:false
+            })
+        );
+
+    updateGame =  gameData =>
+        api.games.update(gameData)
+            .then(game =>
+                this.setState({
+                    games: this.sortGames(
+                        this.state.games.map(item => item._id === game._id ? game : item)
+                    ),
+                    showGameForm: false
+                })
+            );
+
+
     deleteGame = game => this.setState({
         games : this.state.games.filter(item => item._id !== game._id)
     });
 
     toggleFeatured = gameId => {
-        this.setState({
-            games: this.sortGames(
-                this.state.games.map(
-                    game =>
-                        gameId === game._id ? {...game, featured: !game.featured} : game
-                )
-            )
-        })
+        const game = _find(this.state.games, {_id: gameId});
+        return this.updateGame({
+            ...game,
+            featured: !game.featured
+        });
+        // this.setState({
+        //     games: this.sortGames(
+        //         this.state.games.map(
+        //             game =>
+        //                 gameId === game._id ? {...game, featured: !game.featured} : game
+        //         )
+        //     )
+        // })
         // const newGames = this.state.games.map(game => {
         //     if (game._id === gameId) return {...game, featured: !game.featured }
         //     return game;
