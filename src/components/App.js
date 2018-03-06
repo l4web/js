@@ -79,12 +79,13 @@ class App extends React.Component {
         showGameForm: false,
         showPublishers: false,
         selectedGame: {},
-        sideBar: false
+        sideBar: false,
+        loading: true
     };
 
     componentDidMount() {
         api.games.fetchAll()
-            .then(games => this.setState({games: this.sortGames(games)}))
+            .then(games => this.setState({games: this.sortGames(games), loading: false}))
     }
 
     sortGames = games => {
@@ -121,9 +122,13 @@ class App extends React.Component {
             );
 
 
-    deleteGame = game => this.setState({
-        games : this.state.games.filter(item => item._id !== game._id)
-    });
+    deleteGame = game =>
+    api.games.delete(game).then(() =>
+        this.setState({
+            games: this.state.games.filter(item => item._id !== game._id)
+        })
+    )
+
 
     toggleFeatured = gameId => {
         const game = _find(this.state.games, {_id: gameId});
@@ -189,16 +194,30 @@ class App extends React.Component {
                             game={this.state.selectedGame}
                         />
                     </div>)}
-                    <div className={ numberOfColumns + " wide column"}>
-                        <GamesList
-                            columnToShow={columnToShow}
-                            games={this.state.games}
-                            toggleDesc={this.toggleDesc}
-                            toggleFeatured={this.toggleFeatured}
-                            editGame={this.selectGameForEditing}
-                            deleteGame={this.deleteGame}
+                    <div className={`${numberOfColumns} wide column`}>
 
-                        />
+                        {
+                            this.state.loading ? (
+                                <div className="ui icon message">
+                                    <i className="circle loading icon"></i>
+                                    <div className="content">
+                                        <div className="header">Wait a second!</div>
+                                        <p>Loading game collection</p>
+                                    </div>
+                                </div>
+                            ): (
+                                <GamesList
+                                    columnToShow={columnToShow}
+                                    games={this.state.games}
+                                    toggleDesc={this.toggleDesc}
+                                    toggleFeatured={this.toggleFeatured}
+                                    editGame={this.selectGameForEditing}
+                                    deleteGame={this.deleteGame}
+
+                                />
+                            )
+                        }
+
                     </div>
 
                     {
