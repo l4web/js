@@ -7,11 +7,13 @@ class PublishersList extends React.Component {
         showPublisherForm: false,
         selectedPublisher: {}
     };
-    showPublisherForm = publisher => this.setState({showPublisherForm: true, selectedPublisher: publisher });
+    showPublisherForm = publisher => {
+        this.setState({showPublisherForm: true, selectedPublisher: {...publisher} });
+    };
     hidePublisherForm = () => this.setState({showPublisherForm: false});
     savePublisher = publisher => {
         this.hidePublisherForm();
-        this.props.savePublisher(publisher);
+        return this.props.savePublisher(publisher);
     };
     render() {
         const {publishers, hidePublishersList, deletePublisher} = this.props;

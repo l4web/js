@@ -1,42 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FormInlineMessage from './messages/FormInlineMessage';
-
 const initialPublisher = {
-    _id: '',
     name: '',
     website: ''
-}
+};
 class PublisherForm extends React.Component {
-    state= {
-        publisher: initialPublisher,
-        errors: {}
+    state={
+        data: initialPublisher,
+        errors: {},
+        loading: false
     };
     componentDidMount() {
         if(this.props.publisher._id){
-            this.setState({publisher : this.props.publisher  })
+            this.setState({data : this.props.publisher  })
         }
     };
-    handleStringChange = e => {this.setState({ publisher:{ ...this.state.publisher, [e.target.name]: e.target.value }}) };
+    handleStringChange = e => {this.setState({ data:{ ...this.state.data, [e.target.name]: e.target.value }}) };
 
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.publisher._id && nextProps.publisher._id !== this.state.publisher_id){
-            this.setState({publisher: nextProps.publisher});
+        if(nextProps.publisher._id && nextProps.publisher._id !== this.state.data._id){
+            this.setState({data: nextProps.publisher});
         }
         if(!nextProps.publisher._id){
-            this.setState({publisher:initialPublisher})
+            this.setState({data:initialPublisher})
         }
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        const errors = this.validate(this.state.publisher);
+        const errors = this.validate(this.state.data);
         this.setState({errors});
 
-        if(Object.keys(errors).length === 0){
-            this.props.submit(this.state.publisher);
+        if(Object.keys(errors).length === 0) {
+            this.setState({loading: true});
+            this.props
+                .submit(this.state.data)
+
         }
+
 
     };
     validate(data) {
@@ -51,9 +54,10 @@ class PublisherForm extends React.Component {
 
 
     render(){
-        const {errors} = this.state;
+        const {errors, data, loading} = this.state;
+        const formClassName = loading ? 'ui form loading' : 'ui form';
         return (
-            <form className="ui fluid form" onSubmit={this.handleSubmit}>
+            <form className={formClassName} onSubmit={this.handleSubmit}>
                 <div className={errors.name? 'field error' : 'field' }>
                 <label htmlFor="name">Publisher name</label>
                     <input
@@ -62,7 +66,7 @@ class PublisherForm extends React.Component {
                         name="name"
                         className="text"
                         placeholder="Publisher"
-                        value = {this.state.publisher.name}
+                        value = {data.name}
                         onChange={this.handleStringChange}
                     />
                 </div>
@@ -75,7 +79,7 @@ class PublisherForm extends React.Component {
                         name="website"
                         className="text"
                         placeholder="Website URL"
-                        value = {this.state.publisher.website}
+                        value = {data.website}
                         onChange={this.handleStringChange}
                     />
                 </div>
@@ -93,10 +97,10 @@ class PublisherForm extends React.Component {
 }
 
 PublisherForm.propTypes = {
-    selectedPublisher: PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        website: PropTypes.string.isRequired
+    publisher: PropTypes.shape({
+        _id: PropTypes.string,
+        name: PropTypes.string,
+        website: PropTypes.string
     }),
     hidePublishersForm: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired

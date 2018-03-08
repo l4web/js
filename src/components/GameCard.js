@@ -91,7 +91,7 @@ GameCard.propTypes = {
         duration: PropTypes.number.isRequired,
         featured: PropTypes.bool.isRequired,
         description: PropTypes.string.isRequired,
-        isDesc: PropTypes.bool.isRequired
+        isDesc: PropTypes.bool
     }).isRequired,
     toggleFeatured: PropTypes.func.isRequired,
     toggleDesc: PropTypes.func.isRequired,

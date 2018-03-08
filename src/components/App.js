@@ -9,69 +9,6 @@ import SignupForm from "./SignupForm";
 import PublishersList from "./PublishersList";
 import api from '../api';
 
-const publishers = [
-    {
-        _id: '1',
-        name: "Days of wonder",
-        website: ''
-    },
-    {
-        _id: '2',
-        name: "Rio Grande games",
-        website: ''
-    },
-    {
-        _id: '3',
-        name: "Pcq Quote",
-        website: ''
-    }
-
-];
-
-// const games = [
-//     {
-//         _id: 1,
-//         featured: true,
-//         publisher: 1,
-//         price: 3299,
-//         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
-//         name: 'quadropolis',
-//         players: "2-4",
-//         duration: 20,
-//         desc: 'Lorem 2 ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore maiores ullam!',
-//         isDesc: true
-//
-//     },
-//     {
-//         _id: 2,
-//         featured: false,
-//         publisher: 1,
-//         price: 2299,
-//         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
-//         name: 'Heroes',
-//         players: "2",
-//         duration: 60,
-//         desc: 'Lorem 3 ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore maiores ullam!',
-//         isDesc: false
-//
-//     },
-//     {
-//         _id: 3,
-//         featured: false,
-//         publisher: 2,
-//         price: 3399,
-//         thumbnail: 'https://cf.geekdo-images.com/BMUcxCZM_AikQ7uXeuDg43RZIWo=/fit-in/246x300/pic2840020.jpg',
-//         name: 'Red Alert',
-//         players: "1",
-//         duration: 80,
-//         desc: 'Lorem 4 ipsum dolor sit amet, consectetur adipisicing elit. Ducimus inventore maiores ullam!',
-//         isDesc: false
-//
-//     }
-//
-// ];
-
-
 class App extends React.Component {
     state = {
         games: [],
@@ -85,7 +22,9 @@ class App extends React.Component {
 
     componentDidMount() {
         api.games.fetchAll()
-            .then(games => this.setState({games: this.sortGames(games), loading: false}))
+            .then(games => this.setState({games: this.sortGames(games), loading: false}));
+        api.publishers.fetchAll()
+            .then(publishers => this.setState({publishers: publishers }));
     }
 
     sortGames = games => {
@@ -106,9 +45,10 @@ class App extends React.Component {
         api.games.create(gameData).then(game =>
             this.setState({
                 games: this.sortGames([...this.state.games, game]),
-                showGameForm:false
+                showGameForm: false
             })
         );
+
 
     updateGame =  gameData =>
         api.games.update(gameData)
@@ -127,7 +67,7 @@ class App extends React.Component {
         this.setState({
             games: this.state.games.filter(item => item._id !== game._id)
         })
-    )
+    );
 
 
     toggleFeatured = gameId => {
@@ -153,21 +93,31 @@ class App extends React.Component {
     showPublishers = () => this.setState({showPublishers: true, showGameForm: false,});
     hidePublishers = () => this.setState({showPublishers: false});
 
-    deletePublisher = publisher => this.setState({
-        publishers : this.state.publishers.filter(item => item._id !== publisher._id)
-    });
-    savePublisher = publisher => publisher._id ? this.updatePublisher(publisher) : this.addPublisher(publisher);
-    addPublisher = publisher => this.setState({
-        publishers: [
-        ...this.state.publishers, {
-                ...publisher,
-                _id: this.state.publishers.length +1
-            }
-        ]
-    });
-    updatePublisher = publisher => this.setState({
-        publishers: this.state.publishers.map(item => item._id === publisher._id ? publisher : item)
-    });
+    deletePublisher = publisher =>
+        api.publishers.delete(publisher).then(() =>
+            this.setState({
+                publishers: this.state.publishers.filter(item => item._id !== publisher._id)
+            })
+        );
+
+    savePublisher = publisherData => publisherData._id ? this.updatePublisher(publisherData) : this.addPublisher(publisherData);
+
+    addPublisher = publisherData =>
+        api.publishers.create(publisherData).then( publisher =>
+            this.setState({
+                publishers: [...this.state.publishers , publisher],
+                showPublisherForm: false
+            } )
+        );
+
+    updatePublisher = publisherData =>
+        api.publishers.update(publisherData)
+            .then(publisher =>
+                this.setState({
+                    publishers: this.state.publishers.map(item => item._id === publisher._id ? publisher : item),
+                    showPublisherForm: false
+                })
+            );
 
     showGameForm = () => this.setState({showGameForm: true, showPublishers: false, selectedGame: {} });
     hideGameForm = () => this.setState({showGameForm: false, selectedGame: {} });
@@ -190,7 +140,7 @@ class App extends React.Component {
                         <GameForm
                             submit={this.saveGame}
                             hideGameForm={this.hideGameForm}
-                            publishers={publishers}
+                            publishers={this.state.publishers}
                             game={this.state.selectedGame}
                         />
                     </div>)}
