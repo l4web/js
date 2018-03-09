@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactImageFallBack from 'react-image-fallback';
+import { Link } from 'react-router-dom';
 import FormInlineMessage from './messages/FormInlineMessage';
 
 // const tags = [
@@ -246,7 +247,7 @@ class GameForm extends React.Component {
                         Create
                     </button>
                     <div className="or"></div>
-                    <a onClick={this.props.hideGameForm} className="ui button">Cancel</a>
+                    <Link to="/games" className="ui button">Cancel</Link>
                 </div>
 
 
@@ -260,7 +261,6 @@ GameForm.propTypes = {
         _id:PropTypes.string.isRequired,
         name: PropTypes.string.isRequired
     })).isRequired,
-    hideGameForm: PropTypes.func.isRequired,
     submit: PropTypes.func.isRequired,
     game: PropTypes.shape({
         name: PropTypes.string,

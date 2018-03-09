@@ -2,8 +2,8 @@ import React from 'react';
 import _orderBy from 'lodash/orderBy';
 import GamesList from "./GamesList";
 import GameForm from "./GameForm";
-import TopNacigation from "./TopNavigation";
 import _find from 'lodash/find';
+import { Route } from 'react-router-dom';
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import PublishersList from "./PublishersList";
@@ -13,7 +13,6 @@ class GamesPage extends React.Component {
     state = {
         games: [],
         publishers: [],
-        showGameForm: false,
         showPublishers: false,
         selectedGame: {},
         sideBar: false,
@@ -119,31 +118,33 @@ class GamesPage extends React.Component {
                 })
             );
 
-    showGameForm = () => this.setState({showGameForm: true, showPublishers: false, selectedGame: {} });
-    hideGameForm = () => this.setState({showGameForm: false, selectedGame: {} });
+
     selectGameForEditing = game => this.setState({selectedGame: game, showGameForm: true, showPublishers: false,});
 
     render() {
         let numberOfColumns = 'sixteen';
         let columnToShow = 'four';
-        if(this.state.showGameForm || this.state.showPublishers){
+        if(this.props.location.pathname === '/games/new'){
             numberOfColumns = 'ten';
             columnToShow = 'three';
         }
 
         return (
             <div className="ui container">
-                <TopNacigation showPublishers={this.showPublishers} showGameForm={this.showGameForm}/>
                 <div className="ui stackable grid">
-                    {this.state.showGameForm &&(
-                    <div className="six wide column">
-                        <GameForm
-                            submit={this.saveGame}
-                            hideGameForm={this.hideGameForm}
-                            publishers={this.state.publishers}
-                            game={this.state.selectedGame}
-                        />
-                    </div>)}
+               <Route path="/games/new"
+                  render={ () => (
+                       <div className="six wide column">
+                           <GameForm
+                               submit={this.saveGame}
+                               publishers={this.state.publishers}
+                               game={{}}
+                           />
+                       </div>
+                      )
+                    }
+               />
+
                     <div className={`${numberOfColumns} wide column`}>
 
                         {
